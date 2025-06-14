@@ -119,7 +119,7 @@ export const ContactMe = () => {
           <div className="socials">
             <a
               className="social-link"
-              href="https://www.linkedin.com/in/erisismajli"
+              href="www.linkedin.com/in/eris-ismajli-9b666636b"
               target="_blank"
               rel="noopener noreferrer"
             >
