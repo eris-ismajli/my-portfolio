@@ -11,7 +11,7 @@ import laravel from "../Images/laravel.png";
 
 import propHunt from "../Images/PropHunt.png";
 import tms from "../Images/TMS.png";
-import shopping from "../Images/Shopping.png";
+import shopping from "../Images/SimpleShopping.png";
 import dashboard from "../Images/Dashboard.png";
 
 const skills = [
