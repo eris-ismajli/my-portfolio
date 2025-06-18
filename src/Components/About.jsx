@@ -27,7 +27,8 @@ const skills = [
 
 const projectData = [
   {
-    title: "Roblox Prop Hunt Game",
+    title: "Roblox Prop Hunt",
+    category: "Game",
     description:
       "This is my most ambitious project. A game built over 3 years with 50,000+ lines of Lua. It challenged me to break down and solve complex problems by thinking like a true engineer.",
     image: propHunt,
@@ -41,6 +42,7 @@ const projectData = [
   },
   {
     title: "Training Management System",
+    category: "Full-Stack",
     description:
       "A full-stack app for delivering and tracking training with a smooth, role-specific experience for admins, trainers and students.",
     image: tms,
@@ -54,6 +56,7 @@ const projectData = [
   },
   {
     title: "Shopping Website",
+    category: "Frontend",
     description:
       "A simple shopping site built with pure HTML, CSS, and JavaScript, with core e-commerce features built from scratch.",
     image: shopping,
@@ -63,6 +66,7 @@ const projectData = [
   },
   {
     title: "Simple Dashboard",
+    category: "Frontend",
     description:
       "A simple HTML, CSS, and JS project that lets users personalize their page by changing colors, images, and editing or removing cards for a tailored experience.",
     image: dashboard,
@@ -77,6 +81,88 @@ export const About = () => {
     AOS.init({ duration: 700, easing: "ease-out-cubic", once: true });
   }, []);
 
+  const renderProjectsByCategory = (category) => (
+    <div className="projects-holder">
+      <p className="project-category">{category} Projects</p>
+      {projectData
+        .filter((project) => project.category === category)
+        .map((project, i) => (
+          <div
+            className="project-container"
+            key={project.title}
+            style={{ flexDirection: i % 2 === 0 ? "row" : "row-reverse" }}
+            data-aos="fade-up"
+          >
+            <div className="project-left">
+              <div className="image-wrapper">
+                <div className="image-ambient"></div>
+                <img
+                  src={project.image}
+                  className="image"
+                  alt={project.title}
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div className="project-right">
+              <p className="project-title">{project.title}</p>
+              <p className="project-description">{project.description}</p>
+              <p className="tools-used">Tools used:</p>
+              <div className="skill-icons skill-icons-project">
+                {project.tools.map((tool, idx) => (
+                  <div
+                    className="skill-icon"
+                    title={tool.label}
+                    key={idx}
+                    data-aos="zoom-in"
+                  >
+                    {tool.icon && (
+                      <img
+                        src={tool.icon}
+                        alt={tool.label}
+                        className="tool-icon"
+                        loading="lazy"
+                      />
+                    )}
+                    <p>{tool.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="project-links">
+                {project.playUrl && (
+                  <a
+                    href={project.playUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="play-button"
+                  >
+                    Play Game
+                  </a>
+                )}
+                {project.gitLink && (
+                  <a
+                    href={project.gitLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="github-link"
+                  >
+                    <img
+                      src={gitIcon}
+                      alt="GitHub"
+                      className="github-icon"
+                      loading="lazy"
+                    />
+                    View on GitHub
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+    </div>
+  );
+
   return (
     <section className="about-wrapper" id="about">
       <div className="about-main" data-aos="fade-up">
@@ -88,12 +174,12 @@ export const About = () => {
           <div className="bio-card">
             <div className="bio-skills">
               <p>
-                I'm a passionate software enthusiast and developer with over 3
-                years of experience building websites and games that blend
-                performance with creativity. I focus on crafting clean,
-                user-friendly experiences that are both functional and visually
-                engaging. I developed a strong foundation in JavaScript, React,
-                and Lua through hands-on projects and formal training at{" "}
+                I’m a 17 year old frontend developer with 3+ years of hands-on
+                experience creating fast, user-focused websites and games. I
+                specialize in JavaScript, React, and Lua, and I’ve built
+                everything from full-stack training platforms to videogames. My work combines performance with polished design, and
+                I’m always refining my skills to deliver clean, responsive, and
+                engaging user experiences. I trained at{" "}
                 <a
                   href="https://futureminds.io/"
                   target="_blank"
@@ -101,10 +187,9 @@ export const About = () => {
                   className="academy-link"
                 >
                   Future Minds Academy
-                </a>{" "}
-                where I mastered my frontend development skills. I'm always
-                exploring new ideas and pushing the boundaries of what I can
-                create.
+                </a>
+                , where I mastered my frontend abilities, and I am determined
+                to turn ideas into products that stand out.
               </p>
             </div>
 
@@ -153,84 +238,12 @@ export const About = () => {
 
         <article className="projects" data-aos="fade-up" id="projects">
           <div className="skills-title-wrapper">
-            <p className="about-title">My Projects</p>
+            <p className="about-title projects-title">My Projects</p>
           </div>
-
-          <div className="projects-holder">
-            {projectData.map((project, i) => (
-              <div
-                className="project-container"
-                key={i}
-                style={{ flexDirection: i % 2 === 0 ? "row" : "row-reverse" }}
-                data-aos="fade-up"
-              >
-                <div className="project-left">
-                  <div className="image-wrapper">
-                    <div className="image-glow"></div>
-                    <img
-                      src={project.image}
-                      className="image"
-                      alt={project.title}
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-
-                <div className="project-right">
-                  <p className="project-title">{project.title}</p>
-                  <p className="project-description">{project.description}</p>
-                  <p className="tools-used">Tools used:</p>
-                  <div className="skill-icons skill-icons-project">
-                    {project.tools.map((tool, idx) => (
-                      <div
-                        className="skill-icon"
-                        title={tool.label}
-                        key={idx}
-                        data-aos="zoom-in"
-                      >
-                        {tool.icon && (
-                          <img
-                            src={tool.icon}
-                            alt={tool.label}
-                            className="tool-icon"
-                            loading="lazy"
-                          />
-                        )}
-                        <p>{tool.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="project-links">
-                    {project.playUrl && (
-                      <a
-                        href={project.playUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="play-button"
-                      >
-                        Play Game
-                      </a>
-                    )}
-                    {project.gitLink && (
-                      <a
-                        href={project.gitLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="github-link"
-                      >
-                        <img
-                          src={gitIcon}
-                          alt="GitHub"
-                          className="github-icon"
-                          loading="lazy"
-                        />
-                        View on GitHub
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="projects-main-container">
+            {renderProjectsByCategory("Game")}
+            {renderProjectsByCategory("Full-Stack")}
+            {renderProjectsByCategory("Frontend")}
           </div>
         </article>
       </div>

@@ -453,7 +453,6 @@ p {
   position: relative;
   background-color: transparent;
   color: white;
-  overflow: hidden;
   z-index: 1;
 }
 
@@ -685,6 +684,27 @@ p {
   animation: glowPulse 4s ease-in-out infinite;
 }
 
+.about-title::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110%;
+  height: 110%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 128, 0.25) 0%,
+    rgba(255, 0, 128, 0.05) 30%,
+    rgba(255, 0, 128, 0) 80%
+  );
+  filter: blur(30px);
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+
 @-webkit-keyframes glowPulse {
   0% {
     text-shadow: 0 0 8px rgba(255, 0, 204, 0.8), 0 0 16px rgba(255, 0, 204, 0.6),
@@ -752,38 +772,42 @@ p {
 .info-card {
   position: relative;
   width: 50%;
-  font-family: "Inter", sans-serif;
+  height: 320px;
   padding: 25px;
+  font-family: "Inter", sans-serif;
   border-radius: 1rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
   gap: 20px;
-  z-index: -1;
-  height: 320px;
+  z-index: 1;
+
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  -webkit-box-shadow: inset 0 0 0.5px rgba(255, 255, 255, 0.2),
+  overflow: hidden;
+
+  box-shadow:
+    inset 0 0 0.5px rgba(255, 255, 255, 0.2),
     0 4px 20px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 0.5px rgba(255, 255, 255, 0.2),
-    0 4px 20px rgba(0, 0, 0, 0.2);
 
-  -webkit-transition: background 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
+}
 
-  transition: background 0.3s ease, -webkit-box-shadow 0.3s ease;
-
-  -o-transition: background 0.3s ease, box-shadow 0.3s ease;
-
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-
-  transition: background 0.3s ease, box-shadow 0.3s ease,
-    -webkit-box-shadow 0.3s ease;
+/* Gradient border using ::before */
+.info-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px; /* Border thickness */
+   background: linear-gradient(to bottom, #00ffff09, #00e1ff25); /* top to bottom gradient */
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
 }
 
 @-webkit-keyframes float {
@@ -852,6 +876,18 @@ p {
   margin-top: 10px;
 }
 
+.project-category {
+  align-self: flex-start;
+  margin-bottom: -6em;
+  font-size: 1.25rem;
+  font-weight: 200;
+  color: rgb(255, 255, 255);
+  background: rgba(0, 247, 255, 0.021);
+  backdrop-filter: blur(18px) saturate(250%);
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
 .skill-icon {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -883,7 +919,7 @@ p {
 
 .skill-icon-tool {
   text-wrap: nowrap;
-  border: 1px solid rgb(192, 240, 255);
+  border: 1px solid rgb(227, 249, 255);
   background: -webkit-gradient(
     linear,
     left top,
@@ -931,33 +967,52 @@ p {
   width: 100%;
   margin-top: 80px;
   padding-inline: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
 }
 
 .projects-holder {
+  position: relative;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(300%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  -webkit-box-shadow: inset 0 0 0.5px rgba(255, 255, 255, 0.2),
-    0 4px 20px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 0.5px rgba(255, 255, 255, 0.2),
-    0 4px 20px rgba(0, 0, 0, 0.2);
-
-  width: 100%;
-  margin-top: 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  gap: 10em;
-  padding: 5em 4em;
   border-radius: 1rem;
+  overflow: hidden; /* Important to contain the pseudo-border */
+  padding: 4em;
+  width: 100%;
+  margin-top: -2em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10em;
+
+  box-shadow: inset 0 0 0.5px rgba(255, 255, 255, 0.2),
+              0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Gradient border (top to bottom) */
+.projects-holder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px; /* Border thickness */
+  background: linear-gradient(to bottom, #00ffff12, #ff00ff32); /* top to bottom gradient */
+  border-radius: 1rem;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.projects-main-container{
+  display: flex;
+  flex-direction: column;
+  gap: 7em;
 }
 
 .project-container {
@@ -986,29 +1041,36 @@ p {
   aspect-ratio: 16 / 9; /* Forces consistent height */
   border-radius: 16px;
   overflow: visible; /* allow glow to spill outside */
+  z-index: 1;
 }
 
-/* Glowing background image */
 .image-ambient {
+  background-color: rgba(0, 221, 255, 0.3); /* softer blue glow */
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 105%;
-  height: 105%;
-  -webkit-transform: translate(-50%, -50%) scale(1.05);
-  -ms-transform: translate(-50%, -50%) scale(1.05);
+  width: 110%;
+  height: 110%;
   transform: translate(-50%, -50%) scale(1.05);
   z-index: 0;
   pointer-events: none;
-  -o-object-fit: cover;
   object-fit: cover;
-  -webkit-filter: blur(50px) brightness(1.15) saturate(1.2);
-  filter: blur(50px) brightness(1.15) saturate(1.2);
-  opacity: 0.2;
-  -webkit-animation: ambientPulse 4s ease-in-out infinite;
-  animation: ambientPulse 4s ease-in-out infinite;
+  filter: blur(60px) brightness(1.2) saturate(1.4); /* dialed down */
+  opacity: 0.35;
+  animation: ambientPulseSubtle 5s ease-in-out infinite;
 }
 
+@keyframes ambientPulseSubtle {
+  0%,
+  100% {
+    filter: blur(60px) brightness(1.2) saturate(1.4);
+    opacity: 0.35;
+  }
+  50% {
+    filter: blur(75px) brightness(1.25) saturate(1.6);
+    opacity: 0.45;
+  }
+}
 /* Main focused image */
 .image {
   position: relative;
@@ -1018,40 +1080,14 @@ p {
   border-radius: 16px;
   -o-object-fit: cover;
   object-fit: cover;
-  -webkit-box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-}
-
-/* Pulse effect */
-@-webkit-keyframes ambientPulse {
-  0%,
-  100% {
-    -webkit-filter: blur(50px) brightness(1.15) saturate(1.2);
-    filter: blur(50px) brightness(1.15) saturate(1.2);
-  }
-  50% {
-    -webkit-filter: blur(65px) brightness(1.2) saturate(1.3);
-    filter: blur(65px) brightness(1.2) saturate(1.3);
-  }
-}
-@keyframes ambientPulse {
-  0%,
-  100% {
-    -webkit-filter: blur(50px) brightness(1.15) saturate(1.2);
-    filter: blur(50px) brightness(1.15) saturate(1.2);
-  }
-  50% {
-    -webkit-filter: blur(65px) brightness(1.2) saturate(1.3);
-    filter: blur(65px) brightness(1.2) saturate(1.3);
-  }
 }
 
 .project-title {
   color: rgb(32, 171, 241);
-  font-size: 2.5rem;
+  font-size: 2.65rem;
   font-weight: 700;
   margin-bottom: 20px;
-  text-shadow: 0 0 4px rgba(15, 82, 115, 0.5), 0 0 8px rgba(29, 128, 177, 0.3);
+
 }
 
 .project-description {
@@ -1507,6 +1543,10 @@ p {
 
   .projects-holder {
     padding: 20px 20px;
+  }
+
+  .project-category{
+    margin-top: 30px;
   }
 }
 
