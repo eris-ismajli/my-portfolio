@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useMemo } from "react";
+import coderImg from "../Images/coder.png";
 
 export const Hero = () => {
   const fadeUp = useMemo(
@@ -14,13 +15,25 @@ export const Hero = () => {
     []
   );
 
+  const fadeZoom = useMemo(
+    () => ({
+      hidden: { opacity: 0, scale: 0.9 },
+      visible: {
+        opacity: 1,
+        scale: 1,
+        transition: { duration: 1, ease: "easeOut", delay: 0.6 },
+      },
+    }),
+    []
+  );
+
   const staggerContainer = useMemo(
     () => ({
       hidden: {},
       visible: {
         transition: {
           staggerChildren: 0.25,
-          ease: "easeOut",
+          delayChildren: 0.2,
         },
       },
     }),
@@ -28,43 +41,35 @@ export const Hero = () => {
   );
 
   return (
-    <section className="hero-wrapper">
-      {/* Left Section */}
-      <motion.div
-        className="hero-left"
-        variants={staggerContainer}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div className="hero-introduction" variants={fadeUp}>
-          <p>Hello, I'm Eris.</p>
-          <p>I write poetry through programming</p>
-
-          <motion.div variants={staggerContainer} className="hero-button-group">
-            <motion.a
-              className="hero-button"
-              variants={fadeUp}
-              href="#projects"
-            >
-              View My Projects
-            </motion.a>
-            <motion.a
-              className="hero-button contact-button"
-              variants={fadeUp}
-              href="#contact"
-            >
-              Contact Me
-            </motion.a>
-          </motion.div>
-        </motion.div>
+    <motion.section
+      className="hero-wrapper"
+      variants={staggerContainer}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div className="hero-left" variants={staggerContainer}>
+        <motion.p className="hero-introduction" variants={fadeUp}>
+          Hello, I'm Eris. <br /> I write poetry through code.
+        </motion.p>
+        <motion.p className="hero-description" variants={fadeUp}>
+          I'm a developer with a focus on creating clean, user-friendly
+          interfaces and meaningful digital experiences. In my free time,
+          I enjoy building, breaking, fixing and refining software.
+        </motion.p>
+        <motion.a
+          className="hero-button"
+          href="#projects"
+          variants={fadeUp}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          View My Projects
+        </motion.a>
       </motion.div>
 
-      <motion.div
-        className="neon-circle"
-        initial={{ scale: 0.6, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-      />
-    </section>
+      <motion.div className="hero-right" variants={fadeZoom}>
+        <img src={coderImg} alt="" className="hero-img" />
+      </motion.div>
+    </motion.section>
   );
 };

@@ -10,13 +10,16 @@ export const Header = () => {
         </div>
       </div>
 
-      <div className="header-right">
-        <a className="header-link" href="#about">
+      <div className="header-middle">
+        <a className="middle-link" href="#about">
           About
         </a>
-        <a className="header-link" href="#projects">
+        <a className="middle-link" href="#projects">
           Projects
         </a>
+      </div>
+
+      <div className="header-right">
         <a className="header-link" href="#contact">
           Contact
         </a>

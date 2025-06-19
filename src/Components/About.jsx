@@ -14,6 +14,8 @@ import tms from "../Images/TMS.png";
 import shopping from "../Images/SimpleShopping.png";
 import dashboard from "../Images/Dashboard.png";
 
+import profile from "../Images/profile.png";
+
 const skills = [
   { label: "HTML" },
   { label: "CSS" },
@@ -78,11 +80,25 @@ const projectData = [
 
 export const About = () => {
   useEffect(() => {
-    AOS.init({ duration: 700, easing: "ease-out-cubic", once: true });
+    AOS.init({
+      duration: 1000,
+      easing: "ease-out-cubic",
+      once: true,
+      offset: 80,
+    });
   }, []);
 
   const renderProjectsByCategory = (category) => (
-    <div className="projects-holder">
+    <div className="projects-holder" data-aos="fade-up">
+      <div class="background-blobs background-blobs-projects">
+        <div class="glow-project green-project"></div>
+        <div class="glow-project blue-project"></div>
+        <div class="glow-project blue1-project"></div>
+        <div class="glow-project red1-project"></div>
+        <div class="glow-project red2-project"></div>
+        <div class="glow-project yellow-project"></div>
+        <div class="glow-project blue2-project"></div>
+      </div>
       <p className="project-category">{category} Projects</p>
       {projectData
         .filter((project) => project.category === category)
@@ -92,8 +108,9 @@ export const About = () => {
             key={project.title}
             style={{ flexDirection: i % 2 === 0 ? "row" : "row-reverse" }}
             data-aos="fade-up"
+            data-aos-delay={i * 150}
           >
-            <div className="project-left">
+            <div className="project-left" data-aos="fade-zoom-in">
               <div className="image-wrapper">
                 <div className="image-ambient"></div>
                 <img
@@ -105,7 +122,7 @@ export const About = () => {
               </div>
             </div>
 
-            <div className="project-right">
+            <div className="project-right" data-aos="fade-left">
               <p className="project-title">{project.title}</p>
               <p className="project-description">{project.description}</p>
               <p className="tools-used">Tools used:</p>
@@ -116,6 +133,7 @@ export const About = () => {
                     title={tool.label}
                     key={idx}
                     data-aos="zoom-in"
+                    data-aos-delay={idx * 100}
                   >
                     {tool.icon && (
                       <img
@@ -136,6 +154,8 @@ export const About = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="play-button"
+                    data-aos="fade-up"
+                    data-aos-delay="200"
                   >
                     Play Game
                   </a>
@@ -146,6 +166,8 @@ export const About = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="github-link"
+                    data-aos="fade-up"
+                    data-aos-delay="300"
                   >
                     <img
                       src={gitIcon}
@@ -165,21 +187,23 @@ export const About = () => {
 
   return (
     <section className="about-wrapper" id="about">
-      <div className="about-main" data-aos="fade-up">
+      <div className="about-main">
         <article className="about-me-info" data-aos="fade-up">
-          <div className="about-title-wrapper">
-            <h2 className="about-title">About Me</h2>
+          <div className="about-title-wrapper" data-aos="zoom-in">
+            <img src={profile} className="profile" alt="" />
+            <h2 className="about-title about-me-text">About Me</h2>
           </div>
 
-          <div className="bio-card">
+          <div className="bio-card" data-aos="fade-up">
             <div className="bio-skills">
               <p>
                 I’m a 17 year old frontend developer with 3+ years of hands-on
                 experience creating fast, user-focused websites and games. I
                 specialize in JavaScript, React, and Lua, and I’ve built
-                everything from full-stack training platforms to videogames. My work combines performance with polished design, and
-                I’m always refining my skills to deliver clean, responsive, and
-                engaging user experiences. I trained at{" "}
+                everything from full-stack training platforms to videogames. My
+                work combines performance with polished design, and I’m always
+                refining my skills to deliver clean, responsive, and engaging
+                user experiences. I trained at{" "}
                 <a
                   href="https://futureminds.io/"
                   target="_blank"
@@ -188,15 +212,20 @@ export const About = () => {
                 >
                   Future Minds Academy
                 </a>
-                , where I mastered my frontend abilities, and I am determined
-                to turn ideas into products that stand out.
+                , where I mastered my frontend abilities, and I am determined to
+                turn ideas into products that stand out.
               </p>
             </div>
 
-            <div className="info-card">
+            <div className="info-card" data-aos="fade-left">
               {["Date of Birth", "Location", "Experience with"].map(
                 (field, i) => (
-                  <div className="info-wrapper" key={i}>
+                  <div
+                    className="info-wrapper"
+                    key={i}
+                    data-aos="fade-up"
+                    data-aos-delay={i * 100}
+                  >
                     <p className="card-field">{field}</p>
                     <p className="card-value">
                       {field === "Date of Birth" && "03/04/2008"}
@@ -209,7 +238,7 @@ export const About = () => {
             </div>
           </div>
 
-          <div className="skills">
+          <div className="skills" data-aos="fade-up">
             <div className="skills-title-wrapper">
               <p className="about-title">Skills & Tools</p>
             </div>
@@ -220,6 +249,7 @@ export const About = () => {
                   title={skill.label}
                   key={idx}
                   data-aos="zoom-in"
+                  data-aos-delay={idx * 80}
                 >
                   {skill.icon && (
                     <img
@@ -236,14 +266,20 @@ export const About = () => {
           </div>
         </article>
 
-        <article className="projects" data-aos="fade-up" id="projects">
-          <div className="skills-title-wrapper">
-            <p className="about-title projects-title">My Projects</p>
-          </div>
+        <article className="projects" id="projects">
           <div className="projects-main-container">
-            {renderProjectsByCategory("Game")}
-            {renderProjectsByCategory("Full-Stack")}
-            {renderProjectsByCategory("Frontend")}
+            <div
+              className="skills-title-wrapper"
+              data-aos="fade-up"
+              data-aos-delay="150"
+            >
+              <p className="about-title projects-title">My Projects</p>
+            </div>
+            <div className="projects-container">
+              {renderProjectsByCategory("Game")}
+              {renderProjectsByCategory("Full-Stack")}
+              {renderProjectsByCategory("Frontend")}
+            </div>
           </div>
         </article>
       </div>
